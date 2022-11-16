@@ -328,25 +328,40 @@
             $('#requireFullName').html('Vui lòng nhập họ tên');
             return false;
         }
+        else {
+            $('#requireFullName').html('');
+        }
         //else if (Name == '' || Name == null) {
         //    $('#requireName').html('Bạn chưa nhập tên truy cập');
         //    hasError = true;
         //}
-        else if (Email == '' || Email == null ) {
-            $('#requireEmail').html('Vui lòng nhập email( email có dạng :abc123@gmail.com)');
+        if (Email == '' || Email == null) {
+            $('#requireEmail').html('Vui lòng nhập email(email có dạng :abc123@gmail.com)');
             return false;
         }
-        else if (!regex.test(Email)) {
+        else {
+            $('#requireEmail').html('');
+        }
+        if (!regex.test(Email)) {
             $('#requireEmail').html('Định dạng email chưa chính xác (abc123@gmail.com)');
             return false;
         }
-        else if (Phone == '' || Phone == null) {
+        else {
+            $('#requireEmail').html('');
+        }
+        if (Phone == '' || Phone == null) {
             $('#requirePhone').html('Vui lòng nhập số điện thoại');
             return false;
         }
-        else if (Password == '' || Pass == null) {
+        else {
+            $('#requirePhone').html('');
+        }
+        if (Password == '' || Pass == null) {
             $('#requirePass').html('Bạn chưa nhập password');
             return false;
+        }
+        else {
+            $('#requirePass').html('');
         }
 
        /* if (hasError == true) { return false;}*/

@@ -7,8 +7,13 @@ using System.Linq;
 using System.Web;
     public class WatchStoreDbContext : DbContext
     {
+        // DbContext là lớp chính chịu trách nhiệm tương tác với database ( query, theo dõi thay đổi, ánh xạ đối tượng
         public WatchStoreDbContext() : base("name=StrC")
         { }
+        // DbSet đại diện cho một tập thực thể có thể thực hiện các thao tác CRUD 
+
+        //Lớp WatchStoreDbContext implement từ lớp DbContext phải có các thuộc tính kiểu DbSet cho các thực thể
+        //ánh xạ tới các table và view trong cơ sở dữ liệu
         public virtual DbSet<MProduct> Products { get; set; }
         public virtual DbSet<MCategory> Categorys { get; set; }
         public virtual DbSet<MContact> Contacts { get; set; }

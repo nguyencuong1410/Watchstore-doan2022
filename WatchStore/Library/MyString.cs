@@ -28,6 +28,7 @@ namespace WatchStore
             }
             return s;
         }
+        // mã hóa md5
         public static String ToMD5(this String s)
         {
             var bytes = Encoding.UTF8.GetBytes(s);

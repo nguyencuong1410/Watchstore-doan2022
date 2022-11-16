@@ -143,37 +143,38 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div class="tab-pane active" id="Login">
-                                <form method="POST" class="form-horizontal">
-
+                                <form method="POST" class="form-horizontal" name="registration">
                                     <div class="form-group">
                                         <label for="email" class="col-sm-2 control-label">
                                             Họ và tên
                                         </label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" required
-                                                   name="ten" id="FullName" />
+                                            <input type="text" class="form-control"
+                                                   name="hoten" id="FullName" required />
                                         </div>
+                                        <small id="requireFullName" class="pl-1 form-text text-danger"></small>
                                         @*<div class="invalid-feedback">
-                                                Tên không được trống
-                                            </div>*@
+                                            Tên không được trống
+                                           </div>*@
                                     </div>
                                     <div class="form-group">
                                         <label for="email" class="col-sm-2 control-label">
                                             Tên truy cập
                                         </label>
                                         <div class="col-sm-4">
-                                            <input type="text" class="form-control ten" placeholder="" value="" required
-                                                   name="ten" id="Name" />
+                                            <input type="text" class="form-control ten" placeholder="" value=""
+                                                   name="ten" id="Name" pattern="^[a-zA-Z0-9_.-]*$" required />
                                         </div>
+                                        <small id="requireName" class="pl-1 form-text text-danger error"></small>
                                         <label for="email" class="col-sm-1 control-label">
                                             Email
                                         </label>
                                         <div class="col-sm-5">
-                                            <input type="email" class="form-control email" placeholder="" value="" required
-                                                   name="Email" id="Email" />
+                                            <input type="email" class="form-control email" placeholder="" value=""
+                                                   name="Email" id="Email" required />
                                         </div>
+                                        <small id="requireEmail" class="pl-1 form-text text-danger"></small>
                                     </div>
-
                                     <div class="form-group">
                                         <label for="mobile" class="col-sm-2 control-label">
                                             Địa chỉ
@@ -182,15 +183,17 @@
                                             <input type="text" class="form-control address" placeholder="" value="" required
                                                    name="Address" id="Address" />
                                         </div>
+                                        <small id="requireAddress" class="pl-1 form-text text-danger"></small>
                                     </div>
                                     <div class="form-group">
                                         <label for="mobile" class="col-sm-2 control-label">
                                             Số điện thoại
                                         </label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control valiphone Phone8" id="valiphone"
+                                            <input type="tel" class="form-control valiphone Phone8" id="valiphone"
                                                    placeholder="" required name="phone" />
                                         </div>
+                                        <small id="requirePhone" class="pl-1 form-text text-danger"></small>
                                     </div>
 
                                     <div class="form-group">
@@ -201,6 +204,7 @@
                                             <input type="password" class="form-control pass-res" placeholder="" required
                                                    name="pass" id="Pass" />
                                         </div>
+                                        <small id="requirePass" class="pl-1 form-text text-danger"></small>
                                     </div>
                                     <div class="form-group">
                                         <label for="password" class="col-sm-2 control-label">
@@ -210,6 +214,7 @@
                                             <input type="password" class="form-control pl-2  repass-res" placeholder=""
                                                    required name="repass" />
                                         </div>
+                                        <small id="requirerePass" class="pl-1 form-text text-danger"></small>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-check">
@@ -264,26 +269,108 @@
         </div>
     </div>
 </div>
+
+@*<script>
+    $(function () {
+        $("form[name='registration']").validate({
+            rules: {
+                hoten: "required",
+                ten: "required",
+                phone: "required",
+                Email: {
+                    required: true,
+                    email: true
+                },
+                Pass: {
+                    required: true,
+                    minlength: 5
+                },
+                repass: {
+                    required: true,
+                    minlength: 5
+                }
+            },
+            messages: {
+                hoten: "Please enter your fullname",
+                lastname: "Please enter your name",
+                phone: "Please enter your phone",
+                Pass:{
+                    required: "Please provide a password",
+                    minlength: "Your password must be at least 5 characters long"
+                },
+                repass: {
+                    required: "Please provide a password",
+                    minlength: "Your password must be at least 5 characters long"
+                },
+                email: "Please enter a valid email address"
+            },
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+    });
+</script>*@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script>
     $('#btn_register').click(function (e) {
-        e.preventDefault()        
+        e.preventDefault()
+        const Email = $('#Email').val().trim();
+        const Address = $('#Address').val().trim();
+        const FullName = $('#FullName').val().trim();
+        const Name = $('#Name').val().trim();
+        const Password = $('#Pass').val().trim();
+        const Phone = $('.Phone8').val().trim();
+        var regex = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+        //$(".error").hide();
+        //var hasError = false
+        console.log(Email, Address, FullName, Name, Password, Phone)
+        if (FullName == '' || FullName == null) {
+            $('#requireFullName').html('Vui lòng nhập họ tên');
+            return false;
+        }
+        //else if (Name == '' || Name == null) {
+        //    $('#requireName').html('Bạn chưa nhập tên truy cập');
+        //    hasError = true;
+        //}
+        else if (Email == '' || Email == null ) {
+            $('#requireEmail').html('Vui lòng nhập email( email có dạng :abc123@gmail.com)');
+            return false;
+        }
+        else if (!regex.test(Email)) {
+            $('#requireEmail').html('Định dạng email chưa chính xác (abc123@gmail.com)');
+            return false;
+        }
+        else if (Phone == '' || Phone == null) {
+            $('#requirePhone').html('Vui lòng nhập số điện thoại');
+            return false;
+        }
+        else if (Password == '' || Pass == null) {
+            $('#requirePass').html('Bạn chưa nhập password');
+            return false;
+        }
+
+       /* if (hasError == true) { return false;}*/
         $.ajax({
             url: "account/Register",
             type: "POST",
             data: {
                 user: {
-                    Email: $('#Email').val(),
-                    Address: $('#Address').val(),
-                    FullName: $('#FullName').val(),
-                    Name: $('#Name').val(),
-                    Password: $('#Pass').val(),
-                    Phone: $('.Phone8').val(),
+                    Email,
+                    Address,
+                    FullName,
+                    Name,
+                    Password,
+                    Phone,
+                    //Email: $('#Email').val(),
+                    //Address: $('#Address').val(),
+                    //FullName: $('#FullName').val(),
+                    //Name: $('#Name').val(),
+                    //Password: $('#Pass').val(),
+                    //Phone: $('.Phone8').val(),
                 }
             },
-
             dataType: 'json',
             success: function (data) {
-               
                 if (data.Code == 0) {
                     $('#exampleModal').modal("hide")
                     swal({

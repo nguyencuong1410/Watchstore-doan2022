@@ -14,10 +14,15 @@ using System.Web;
         [Key]
         [Required]
         public int ID { get; set; }
+        [Required]
         public string FullName { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
+
+        [Required]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
         public string Email { get; set; }
+
         public int Gender { get; set; }//Giới tính
         public int Phone { get; set; }
         public string Address { get; set; }

@@ -131,19 +131,21 @@ namespace WatchStore.Controllers
                 {
                     return Json(new { Code = 1, Message = "Số điện thoại hoặc Email đã được sử dụng." });
                 }
-                user.Gender = 1;
-                user.Image = "";
-                user.Access = 1;
-                user.Status = 1;
-                user.Password = MyString.ToMD5(user.Password);
-                user.Created_at = DateTime.Now;
-                user.Created_by = 1;
-                user.Updated_at = DateTime.Now;
-                user.Updated_by = 1;
+                if(ModelState.IsValid)
+                {
+                    user.Gender = 1;
+                    user.Image = "";
+                    user.Access = 1;
+                    user.Status = 1;
+                    user.Password = MyString.ToMD5(user.Password);
+                    user.Created_at = DateTime.Now;
+                    user.Created_by = 1;
+                    user.Updated_at = DateTime.Now;
+                    user.Updated_by = 1;
 
-                db.Users.Add(user);
-                db.SaveChanges();
-
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                }
                 return Json(new { Code = 0, Message = "Đăng ký thành công!" });
             }
             catch (Exception e)
